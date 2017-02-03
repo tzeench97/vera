@@ -1,4 +1,10 @@
--- Usage: success (boolean), err (string) = pushover( { a table with keys and values corresponding to pushover API } )
+-- ---------------------------------------------------------------------------------------
+-- This script is to leverage the use of push notifications to your mobile device via the
+-- free Pushover application (http://pushover.net).
+--
+-- Usage Syntax: 
+--    success (boolean), err (string) = pushover( { a table with keys and values corresponding to pushover API } )
+-- ---------------------------------------------------------------------------------------
 function pushover(request)
 	luup.log("=======================================================================")
 	luup.log("                         PUSHOVER REQUEST                              ")
