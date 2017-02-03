@@ -2,6 +2,10 @@
 -- This script is to leverage the use of push notifications to your mobile device via the
 -- free Pushover application (http://pushover.net).
 --
+-- NOTE: You need to set the following values in the startup lua (Apps / Develop Apps / Edit Startup Lua)
+--    PUSHOVER_TOKEN = Your Pushover token
+--    PUSHOVER_USERKEY = Your Pushover apps user key
+--
 -- Usage Syntax: 
 --    success (boolean), err (string) = pushover( { a table with keys and values corresponding to pushover API } )
 -- ---------------------------------------------------------------------------------------
@@ -43,11 +47,6 @@ function pushover(request)
 		return false, errstr
 	else 
 		return true, "OK"
-	--[[
-	elseif (res ~= '{"status":1}') then
-		local errstr = "Error from pushover: " .. tostring(res)
-		return false, errstr
-	]]--
 	end
 	
 	luup.log("=======================================================================")
