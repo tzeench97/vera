@@ -1,14 +1,59 @@
--- ---------------------------------------------------------------------------------------
--- This script is to leverage the use of push notifications to your mobile device via the
--- free Pushover application (http://pushover.net).
---
--- NOTE: You need to set the following values in the startup lua (Apps / Develop Apps / Edit Startup Lua)
---    PUSHOVER_TOKEN = Your Pushover token
---    PUSHOVER_USERKEY = Your Pushover apps user key
---
--- Usage Syntax: 
---    success (boolean), err (string) = pushover( { a table with keys and values corresponding to pushover API } )
--- ---------------------------------------------------------------------------------------
+--[[ 
+---------------------------------------------------------------------------------------
+This script is to leverage the use of push notifications to your mobile device via the
+free Pushover application (http://pushover.net).
+
+NOTE: You need to set the following values in the startup lua (Apps / Develop Apps / Edit Startup Lua)
+   PUSHOVER_TOKEN = Your Pushover token
+   PUSHOVER_USERKEY = Your Pushover apps user key
+
+Usage Syntax: 
+   success (boolean), err (string) = pushover( { a table with keys and values corresponding to pushover API } )
+
+---------------------------------------------------------------------------------------
+ Example Usage:
+---------------------------------------------------------------------------------------
+   require("CustomScript_pushover")
+    
+   -- Setup the three required fields of the request table:
+   local request = {
+             device    = "Both",
+             title     = "Saltwater Tank",
+             url       = "http://home.getvera.com",
+             url_title = "Sent by VeraEdge (Home Automation Device)",
+             html      = 1,
+             message   = "The <b><font color='red'>60 Gallon Saltwater Tank</font></b> is drawing less than 10 watts of power.  You might want on check it."
+   }
+            
+   -- Send the request
+   local success, err = pushover( request )
+   
+   -- Check the response
+   luup.log("=======================================================================")
+   luup.log("           60G SALTWATER TANK LOW WATTS - PUSHOVER RESPONSE            ")
+   luup.log("=======================================================================")
+   luup.log(success)
+   luup.log(err)
+   if (success) then
+     luup.log("Hells yeah! The push was sent successfully.")
+   else
+     luup.log("Awe snap! The push failed with error: " .. err)
+   end
+   luup.log("=======================================================================")
+   luup.log("        60G SALTWATER TANK LOW WATTS - PUSHOVER RESPONSE (DONE)        ")
+   luup.log("=======================================================================")
+
+---------------------------------------------------------------------------------------
+]]--
+
+-- ================ --
+-- PUBLIC VARIABLES --
+-- ================ --
+
+
+-- ================ --
+-- PUBLIC FUNCTIONS --
+-- ================ --
 function pushover(request)
 	luup.log("=======================================================================")
 	luup.log("                         PUSHOVER REQUEST                              ")
@@ -34,7 +79,7 @@ function pushover(request)
 	for k,v in pairs(request) do
 		luup.log(tostring(k) .. ": " .. tostring(v))
 	end
-	luup.log("------------------------------------------------------------")
+	luup.log("============================================================")
 	luup.log("Data Sent to PushOver: " .. data_str)
 	luup.log("============================================================")
 	
