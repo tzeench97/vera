@@ -8,8 +8,22 @@
 --  !!! REQUIRES THE 'CustomScript_pushover' SCRIPT TO WORK !!!
 -- ~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
 --     ~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
---       
--- @author Andrew Stenzel
+-- 
+-- ---------------------------------------------------------------
+--  Something worth noting:
+--   All log enteries are enter with the log level of 79.  This
+--   is not a normal logging level, so if tailing the logs by
+--   log level will not work.
+--   
+--   Either change this value to one found in your /etc/cmh/cmh.conf
+--   or add the value to the /etc/cmh/cmh.conf and reboot your
+--   vera device
+--   
+--   Tailing by logging level can be done using (which includes
+--   sever log levels too, in case there are problems):
+--      tail -f /tmp/log/cmh/LuaUPnP.log | grep '^79\|^01'     
+-- ---------------------------------------------------------------
+-- -- @author Andrew Stenzel
 -- @module WasherDryerMonitor
 
 require("CustomScript_pushover")
@@ -17,8 +31,9 @@ require("CustomScript_pushover")
 -- ---------------
 -- Local variables
 -- ---------------
-local DRYER_DEVICE_ID = 4
-local WASHER_DEVICE_ID = 19
+-- The devices ID is found in the 'Advanced' page of the device
+local DRYER_DEVICE_ID = 4   -- Your dryers device ID
+local WASHER_DEVICE_ID = 19 -- Your washing machines device ID
 
 local NOTIFY_WHEN_WASHER_STOPS_AND_DRYER_STOPPED = true
 local NOTIFY_WHEN_WASHER_STOPS_AND_DRYER_RUNNING = false
@@ -141,25 +156,25 @@ function deviceIsRunning(deviceID)
 end
 
 -- =========================================================
---  Executed code
+--  Code to test with
 -- =========================================================
-luup.log("",79)
-luup.log("",79)
-luup.log("",79)
-luup.log("=======================================================================",79)
-luup.log("           Test beginning @ " .. os.date("%c"),79)
-luup.log("=======================================================================",79)
-luup.log(string.format("Is the DRYER currently Running? %s", tostring(deviceIsRunning(DRYER_DEVICE_ID))),79)
-luup.log(string.format("Is the WASHER currently Running? %s", tostring(deviceIsRunning(WASHER_DEVICE_ID))),79)
-luup.log("=======================================================================",79)
-luup.log("-----------------------------------------------------------------------",79)
-luup.log("Simulating the washer as stopped",79)
-luup.log("-----------------------------------------------------------------------",79)
-clothesWasherEnded()
-luup.log("-----------------------------------------------------------------------",79)
-luup.log("Simulating the Dryer as stopped",79)
-luup.log("-----------------------------------------------------------------------",79)
-clothesDryerEnded()
-luup.log("=======================================================================",79)
-luup.log("                              Test Ended                               ",79)
-luup.log("=======================================================================",79)
+--luup.log("",79)
+--luup.log("",79)
+--luup.log("",79)
+--luup.log("=======================================================================",79)
+--luup.log("           Test beginning @ " .. os.date("%c"),79)
+--luup.log("=======================================================================",79)
+--luup.log(string.format("Is the DRYER currently Running? %s", tostring(deviceIsRunning(DRYER_DEVICE_ID))),79)
+--luup.log(string.format("Is the WASHER currently Running? %s", tostring(deviceIsRunning(WASHER_DEVICE_ID))),79)
+--luup.log("=======================================================================",79)
+--luup.log("-----------------------------------------------------------------------",79)
+--luup.log("Simulating the washer as stopped",79)
+--luup.log("-----------------------------------------------------------------------",79)
+--clothesWasherEnded()
+--luup.log("-----------------------------------------------------------------------",79)
+--luup.log("Simulating the Dryer as stopped",79)
+--luup.log("-----------------------------------------------------------------------",79)
+--clothesDryerEnded()
+--luup.log("=======================================================================",79)
+--luup.log("                              Test Ended                               ",79)
+--luup.log("=======================================================================",79)
