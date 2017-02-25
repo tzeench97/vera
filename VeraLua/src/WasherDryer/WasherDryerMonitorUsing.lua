@@ -23,7 +23,7 @@
 --   sever log levels too, in case there are problems):
 --      tail -f /tmp/log/cmh/LuaUPnP.log | grep '^79\|^01'     
 -- ---------------------------------------------------------------
--- -- @author Andrew Stenzel
+-- @author Andrew Stenzel
 -- @module WasherDryerMonitor
 
 require("CustomScript_pushover")
@@ -145,7 +145,7 @@ end
 -- end
 function deviceIsRunning(deviceID)
 
-  currentWatts = luup.variable_get("urn:micasaverde-com:serviceId:EnergyMetering1", "Watts", deviceID)
+  local currentWatts = luup.variable_get("urn:micasaverde-com:serviceId:EnergyMetering1", "Watts", deviceID)
   
   if (currentWatts == "0.000") then
     return false
