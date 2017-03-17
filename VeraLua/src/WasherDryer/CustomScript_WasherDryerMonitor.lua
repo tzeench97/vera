@@ -45,8 +45,8 @@ local WASHER_ONLY_COMPLETE = "The <b><font color='red'>washer</font></b> is comp
 local DRYER_ONLY_COMPLETE = "The <b><font color='red'>dryer</font></b> is complete, but the <b><font color='red'>washer</font></b> is still running"
 
 local WASHER_AND_DRYER_COMPLETE_TITLE = "Laundry is Ready"
-local WASHER_ONLY_COMPLETE = "Laundry is Ready"
-local DRYER_ONLY_COMPLETE = "Laundry is Ready"
+local WASHER_ONLY_COMPLETE_TITLE = "Laundry is Ready"
+local DRYER_ONLY_COMPLETE_TITLE = "Laundry is Ready"
 
 --- Is triggered when the <b>Clothes Washer</b> has <b>STOPPED</b> (Watts = 0).
 function clothesWasherEnded()
@@ -58,12 +58,10 @@ function clothesWasherEnded()
   if (deviceIsRunning(DRYER_DEVICE_ID)) then
     luup.log("Dryer is RUNNING",79)
     luup.log(string.format("Will a push notification be sent? %s", tostring(NOTIFY_WHEN_WASHER_STOPS_AND_DRYER_RUNNING)),79)
-    --pushNotification(NOTIFY_WHEN_WASHER_STOPS_AND_DRYER_RUNNING)
-    pushNotification(false, WASHER_ONLY_COMPLETE, WASHER_ONLY_COMPLETE)
+    pushNotification(false, WASHER_ONLY_COMPLETE_TITLE, WASHER_ONLY_COMPLETE)
   else
     luup.log("Dryer is STOPPED",79)
     luup.log(string.format("Will a push notification be sent? %s", tostring(NOTIFY_WHEN_WASHER_STOPS_AND_DRYER_STOPPED)),79)
-    --pushNotification(NOTIFY_WHEN_WASHER_STOPS_AND_DRYER_STOPPED)
     pushNotification(true, WASHER_AND_DRYER_COMPLETE_TITLE, WASHER_AND_DRYER_COMPLETE)
   end
   
@@ -79,12 +77,10 @@ function clothesDryerEnded()
   if (deviceIsRunning(WASHER_DEVICE_ID)) then
     luup.log("Washer is RUNNING",79)
     luup.log(string.format("Will a push notification be sent? %s", tostring(NOTIFY_WHEN_DRYER_STOPS_AND_WASHER_RUNNING)),79)
-    --pushNotification(NOTIFY_WHEN_DRYER_STOPS_AND_WASHER_RUNNING)
-    pushNotification(true, DRYER_ONLY_COMPLETE, DRYER_ONLY_COMPLETE)
+    pushNotification(true, DRYER_ONLY_COMPLETE_TITLE, DRYER_ONLY_COMPLETE)
   else
     luup.log("Washer is STOPPED",79)
     luup.log(string.format("Will a push notification be sent? %s", tostring(NOTIFY_WHEN_DRYER_STOPS_AND_WASHER_STOPPED)),79)
-    --pushNotification(NOTIFY_WHEN_DRYER_STOPS_AND_WASHER_STOPPED)
     pushNotification(true, WASHER_AND_DRYER_COMPLETE_TITLE, WASHER_AND_DRYER_COMPLETE)
   end
   
@@ -147,7 +143,7 @@ function deviceIsRunning(deviceID)
 
   local currentWatts = luup.variable_get("urn:micasaverde-com:serviceId:EnergyMetering1", "Watts", deviceID)
   
-  if (currentWatts == "0.000") then
+  if (tonumber(currentWatts) <= 5) then
     return false
   else
     return true
