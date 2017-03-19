@@ -1,8 +1,14 @@
 --- This module is for monitoring the clothes washer and dryer.
 -- It will also send Pushover notifications as needed
--- NOTE: Decisions on sending notifications or not are set in the
+-- NOTE: Decisions on sending notifications are set in the
 --       NOTIFY_WHEN_xxx_STOPS_AND_xxx_xxx variables.
---
+--       
+-- NOTE 2: You will also want to change the following variables,
+--      since each machine will be different:
+--        DRYER_DEVICE_ID 
+--        WASHER_DEVICE_ID
+--        MAX_OFF_WATTAGE
+--      
 --    ~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~      
 -- ~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
 --  !!! REQUIRES THE 'CustomScript_pushover' SCRIPT TO WORK !!!
@@ -31,9 +37,12 @@ require("CustomScript_pushover")
 -- ---------------
 -- Local variables
 -- ---------------
+
 -- The devices ID is found in the 'Advanced' page of the device
 local DRYER_DEVICE_ID = 4   -- Your dryers device ID
 local WASHER_DEVICE_ID = 19 -- Your washing machines device ID
+
+local MAX_OFF_WATTAGE = 4 -- The maximum wattage pull to be considered 'off'
 
 local NOTIFY_WHEN_WASHER_STOPS_AND_DRYER_STOPPED = true
 local NOTIFY_WHEN_WASHER_STOPS_AND_DRYER_RUNNING = false
@@ -143,7 +152,7 @@ function deviceIsRunning(deviceID)
 
   local currentWatts = luup.variable_get("urn:micasaverde-com:serviceId:EnergyMetering1", "Watts", deviceID)
   
-  if (tonumber(currentWatts) <= 5) then
+  if (tonumber(currentWatts) <= MAX_OFF_WATTAGE) then
     return false
   else
     return true
