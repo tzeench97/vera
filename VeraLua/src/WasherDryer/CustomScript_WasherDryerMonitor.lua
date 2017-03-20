@@ -15,6 +15,10 @@
 -- ~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
 --     ~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
 -- 
+-- Example Usage:
+--    require("CustomScript_WasherDryerMonitor")
+--    clothesDryerEnded()
+--    
 -- ---------------------------------------------------------------
 --  Something worth noting:
 --   All log enteries are enter with the log level of 79.  This
@@ -53,9 +57,9 @@ local WASHER_AND_DRYER_COMPLETE = "The <b><font color='red'>washer</font></b> an
 local WASHER_ONLY_COMPLETE = "The <b><font color='red'>washer</font></b> is complete, but the <b><font color='red'>dryer</font></b> is still running"
 local DRYER_ONLY_COMPLETE = "The <b><font color='red'>dryer</font></b> is complete, but the <b><font color='red'>washer</font></b> is still running"
 
-local WASHER_AND_DRYER_COMPLETE_TITLE = "Laundry is Ready"
-local WASHER_ONLY_COMPLETE_TITLE = "Laundry is Ready"
-local DRYER_ONLY_COMPLETE_TITLE = "Laundry is Ready"
+local WASHER_AND_DRYER_COMPLETE_TITLE = "Clothes Washer & Dryer Ready"
+local WASHER_ONLY_COMPLETE_TITLE = "Clothes Washer is Ready"
+local DRYER_ONLY_COMPLETE_TITLE = "Clothes Dryer is Ready"
 
 --- Is triggered when the <b>Clothes Washer</b> has <b>STOPPED</b> (Watts = 0).
 function clothesWasherEnded()
