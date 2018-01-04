@@ -5,9 +5,9 @@
 --       
 -- NOTE 2: You will also want to change the following variables,
 --      since each machine will be different:
---        DRYER_DEVICE_ID 
---        WASHER_DEVICE_ID
---        MAX_OFF_WATTAGE
+--        DRYER_DEVICE_ID  - Defined in your startup Lua (Apps / Develop Apps / Edit Startup Lua)
+--        WASHER_DEVICE_ID - Defined in your startup Lua (Apps / Develop Apps / Edit Startup Lua)
+--        MAX_OFF_WATTAGE  - Defined below (might not always be zero as some devices pull some wattage when on, but not running; like for the LEDs/Lights)
 --      
 --    ~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~      
 -- ~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
@@ -43,9 +43,6 @@ require("CustomScript_pushover")
 -- ---------------
 
 -- The devices ID is found in the 'Advanced' page of the device
-local DRYER_DEVICE_ID = 4   -- Your dryers device ID
-local WASHER_DEVICE_ID = 19 -- Your washing machines device ID
-
 local MAX_OFF_WATTAGE = 4 -- The maximum wattage pull to be considered 'off'
 
 local NOTIFY_WHEN_WASHER_STOPS_AND_DRYER_STOPPED = true
@@ -163,27 +160,3 @@ function deviceIsRunning(deviceID)
   end
   
 end
-
--- =========================================================
---  Code to test with
--- =========================================================
---luup.log("",79)
---luup.log("",79)
---luup.log("",79)
---luup.log("=======================================================================",79)
---luup.log("           Test beginning @ " .. os.date("%c"),79)
---luup.log("=======================================================================",79)
---luup.log(string.format("Is the DRYER currently Running? %s", tostring(deviceIsRunning(DRYER_DEVICE_ID))),79)
---luup.log(string.format("Is the WASHER currently Running? %s", tostring(deviceIsRunning(WASHER_DEVICE_ID))),79)
---luup.log("=======================================================================",79)
---luup.log("-----------------------------------------------------------------------",79)
---luup.log("Simulating the washer as stopped",79)
---luup.log("-----------------------------------------------------------------------",79)
---clothesWasherEnded()
---luup.log("-----------------------------------------------------------------------",79)
---luup.log("Simulating the Dryer as stopped",79)
---luup.log("-----------------------------------------------------------------------",79)
---clothesDryerEnded()
---luup.log("=======================================================================",79)
---luup.log("                              Test Ended                               ",79)
---luup.log("=======================================================================",79)
