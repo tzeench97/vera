@@ -2,7 +2,6 @@
 -- PUBLIC VARIABLES --
 -- ================ --
 
-
 -- ================ --
 -- PUBLIC FUNCTIONS --
 -- ================ --
@@ -17,8 +16,8 @@ function pushover(request)
   
   -- Build the POST string
   local data_str = {}
-  table.insert(data_str,"token=" .. tostring(PUSHOVER_TOKEN))
-  table.insert(data_str,"user=" .. tostring(PUSHOVER_USERKEY))
+  table.insert(data_str,"token=" .. tostring(PUSHOVER_APP_KEY))
+  table.insert(data_str,"user=" .. tostring(PUSHOVER_USER_KEY))
   for k,v in pairs(request) do
     table.insert(data_str, tostring(k) .. "=" .. tostring(v))
   end
@@ -26,8 +25,8 @@ function pushover(request)
   
   -- For Debugging
   luup.log("VARIABLE VALUES")
-  luup.log("token: " .. tostring(PUSHOVER_TOKEN))
-  luup.log("user: " .. tostring(PUSHOVER_USERKEY))
+  luup.log("token: " .. tostring(PUSHOVER_APP_KEY))
+  luup.log("user: " .. tostring(PUSHOVER_USER_KEY))
   for k,v in pairs(request) do
     luup.log(tostring(k) .. ": " .. tostring(v))
   end
