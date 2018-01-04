@@ -8,8 +8,9 @@
 		mobile device via the free Pushover application (http://pushover.net)
 		NOTE: You need to set the following values in the startup lua 
 		(Apps / Develop Apps / Edit Startup Lua)
-		   PUSHOVER_TOKEN = Your Pushover token
-		   PUSHOVER_USERKEY = Your Pushover apps user ke
+		    PUSHOVER_APP_KEY   = The applications key (for your specific application; found under "Your Applications") 
+                    PUSHOVER_GROUP_KEY = The delivery group key (for your specific delivery groups; found under "Your Delivery Groups")
+                    PUSHOVER_USER_KEY  = The Pushover user key (found on the main dashboard of the Pushover web site)
 		
 	Usage Syntax: 
    		success, err = pushover( { keyValuePairs } )
